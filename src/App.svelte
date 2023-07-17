@@ -68,17 +68,14 @@ function validateIfWinner(symbol) {
             */
             (carry, cell) => carry && cell.value === symbol, true
             );
-    for(let anchorIndex = 0; anchorIndex < BoardSize; ++anchorIndex) {
-        const row = board[anchorIndex];
-        const column = board.map(row => row[anchorIndex]);
-        if(isArrayFull(row) || isArrayFull(column)) {
-            return true;
-        }
-    }
+    const isRowOrColumnFull = board.filter((row, index) => {
+        const column = board.map(row => row[index]);
+        return isArrayFull(row) || isArrayFull(column);
+    }).length > 0;
     const diagonalTopLeft = board.map((row, index) => row[index]);
     const diagonalTopRight = board.map((row, index) => row[BoardSize - 1 - index]);
     console.log({diagonalTopRight, diagonalTopLeft});
-    return isArrayFull(diagonalTopLeft) || isArrayFull(diagonalTopRight);
+    return isRowOrColumnFull || isArrayFull(diagonalTopLeft) || isArrayFull(diagonalTopRight);
 }
 
 let winner = undefined;
