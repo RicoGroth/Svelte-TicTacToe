@@ -61,13 +61,7 @@ function validateIfWinner(symbol) {
     /**
     * @param {Cell[]} array
     */
-    const isArrayFull = array => array.reduce(
-            /**
-            * @param {boolean} carry
-            * @param {Cell} cell
-            */
-            (carry, cell) => carry && cell.value === symbol, true
-            );
+    const isArrayFull = array => array.every(cell => cell.value === symbol);
     const isRowOrColumnFull = board.filter((row, index) => {
         const column = board.map(row => row[index]);
         return isArrayFull(row) || isArrayFull(column);
